@@ -80,18 +80,36 @@ daily_counts = df.groupby('일자').size()
 # 누적 합 계산
 cumulative_counts = daily_counts.cumsum()
 
-fig, ax = plt.subplots(figsize=(10, 6))
-# 꺾은선 그래프
-ax.plot(cumulative_counts.index, cumulative_counts.values, linestyle='-', color='g', label='Cumulative')
+# fig, ax = plt.subplots(figsize=(10, 6))
+# # 꺾은선 그래프
+# ax.plot(cumulative_counts.index, cumulative_counts.values, linestyle='-', color='g', label='Cumulative')
 
-# 막대 그래프
-ax.bar(daily_counts.index, daily_counts.values, color='orange', alpha=0.5, label='Daily')
+# # 막대 그래프
+# ax.bar(daily_counts.index, daily_counts.values, color='orange', alpha=0.5, label='Daily')
 
-ax.xaxis.set_major_locator(MaxNLocator(integer=True, prune='both', nbins=10))  # 'nbins' 값으로 표시할 레이블 수 조정
+# ax.xaxis.set_major_locator(MaxNLocator(integer=True, prune='both', nbins=10))  # 'nbins' 값으로 표시할 레이블 수 조정
 
-# 제목 및 레이블 추가
-ax.set_xlabel("date")
-ax.set_ylabel("cumulative_count")
+# # 제목 및 레이블 추가
+# ax.set_xlabel("date")
+# ax.set_ylabel("cumulative_count")
+
+fig, ax1 = plt.subplots(figsize=(10, 6))
+
+# 첫 번째 y축: 누적합 (왼쪽)
+ax1.plot(cumulative_counts.index, cumulative_counts.values, color='green', linestyle='-', label='Cumulative')
+ax1.set_ylabel("Cumulative Count", color='green')
+ax1.tick_params(axis='y', labelcolor='green')
+
+# x축 설정
+ax1.set_xlabel("Date")
+ax1.xaxis.set_major_locator(MaxNLocator(integer=True, prune='both', nbins=10))
+plt.xticks(rotation=45)
+
+# 두 번째 y축: 일별 개수 (오른쪽)
+ax2 = ax1.twinx()
+ax2.bar(daily_counts.index, daily_counts.values, color='orange', alpha=0.5, label='Daily')
+ax2.set_ylabel("Daily Count", color='orange')
+ax2.tick_params(axis='y', labelcolor='orange')
 
 # x축 레이블 회전 (가독성 향상)
 plt.xticks(rotation=45)
