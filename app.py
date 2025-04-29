@@ -12,7 +12,6 @@ import matplotlib.cm as cm
 import seaborn as sns
 
 rc('font', family='DejaVu Sans')
-# rc('font', family='AppleGothic')
 plt.rcParams['axes.unicode_minus'] = False
 
 
@@ -66,7 +65,6 @@ def load_data():
 df = load_data()
 
 # 시각화
-# st.title("💡 나의 알고리즘 대시보드 💡")
 st.markdown(
     """
     <h5 style='text-align: center; margin-top: -20px;'>💡 나의 알고리즘 대시보드 💡</h5>
@@ -75,8 +73,6 @@ st.markdown(
 )
 # My Algorithm Dashboard
 # 날짜별 문제 개수 계산
-# st.subheader("Accumulated number by date")
-# st.subheader("📆 날짜별로 쌓이는 문제 풀이 📊")
 st.markdown("###### 📆 날짜별로 쌓이는 문제 풀이 📊")
 
 daily_counts = df.groupby('일자').size()
@@ -86,7 +82,7 @@ cumulative_counts = daily_counts.cumsum()
 
 fig, ax = plt.subplots(figsize=(10, 6))
 # 꺾은선 그래프
-ax.plot(cumulative_counts.index, cumulative_counts.values, marker='o', linestyle='-', color='g', label='Cumulative')
+ax.plot(cumulative_counts.index, cumulative_counts.values, linestyle='-', color='g', label='Cumulative')
 
 # 막대 그래프
 ax.bar(daily_counts.index, daily_counts.values, color='orange', alpha=0.5, label='Daily')
@@ -104,9 +100,6 @@ plt.xticks(rotation=45)
 plt.tight_layout()
 st.pyplot(fig)
 st.markdown("<br>", unsafe_allow_html=True)  # 한 줄 띄우기
-
-# st.subheader("Ratio of problems per algorithm")
-# st.subheader("🖥️ 알고리즘 유형별 문제 비율 🍩")
 st.markdown("###### 🖥️ 알고리즘 유형별 문제 비율 🍩")
 # 알고리즘별 개수 계산
 algo_counts = df["알고리즘"].value_counts()
@@ -120,7 +113,6 @@ ax.pie(
     radius = 1.2,
     colors = colors
 )
-# ax.set_title("Ratio of problems per algorithm")
 
 # ✅ 레이아웃 조정 (중요)
 fig.tight_layout()
@@ -131,14 +123,11 @@ st.markdown("<br>", unsafe_allow_html=True)  # 한 줄 띄우기
 
 
 # 난이도별 개수 시각화
-# st.subheader("Number of problems per Level")
-# st.subheader("🎯 난이도별 문제 개수 분포 🔥🆙")
 st.markdown("###### 🎯 난이도별 문제 개수 분포 🔥🆙")
 fig, ax = plt.subplots(figsize=(8, 5))
 sns.countplot(x=df["난이도"], palette="viridis", ax=ax)
 ax.set_xlabel("Level")
 ax.set_ylabel("Count")
-# ax.set_title("Number of problems per Level")
 st.pyplot(fig)
 st.markdown("<br>", unsafe_allow_html=True)  # 한 줄 띄우기
 
