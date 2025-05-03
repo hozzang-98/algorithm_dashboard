@@ -1,5 +1,3 @@
-from datetime import datetime
-
 import requests, os
 import pandas as pd
 
@@ -53,7 +51,6 @@ def load_data():
             "난이도": int(result["properties"]["난이도"]["select"]["name"][3:]),
             "정답률": result["properties"]["정답률"]["number"],
             "제목": result["properties"]["제목"]["title"][0]["plain_text"],
-            "Github": result["properties"]["Github"]["url"],
             "문제 URL": result["properties"]["문제 URL"]["url"],
             "일자": pd.to_datetime(result['properties']['생성일']['date']['start'])
         })
