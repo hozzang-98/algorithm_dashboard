@@ -53,7 +53,7 @@ def load_data():
             "정답률": str(int(result["properties"]["정답률"]["number"]) * 100) + '%',
             "Github": result["properties"]["Github"]["url"],
             "문제 URL": result["properties"]["문제 URL"]["url"],
-            "일자": pd.to_datetime(result['properties']['생성일']['date']['start'])
+            "일자": str(pd.to_datetime(result['properties']['생성일']['date']['start'])).split()[0]
         })
 
     df = pd.DataFrame(data_list)
